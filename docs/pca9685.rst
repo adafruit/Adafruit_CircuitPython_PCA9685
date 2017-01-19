@@ -1,0 +1,26 @@
+PCA9685 PWM Driver
+******************
+
+.. module:: pca9685
+
+.. class:: PCA9685(i2c, address=0x40)
+
+    Allows controlling the PWM chip directly.
+
+    .. method:: reset()
+
+        Reset the chip.
+
+    .. method:: freq([freq])
+
+        Get or set the PWM frequency.
+
+    .. method:: pwm(index, [on], [off])
+
+        Get or set the PWM signal's on and off timings for the channel `index`.
+
+    .. method:: duty(index, [value], [invert])
+
+        Get or set the PWM duty cycle in range 0-4095 (4095 corresponds to 100%
+        duty cycle). If `invert` is `True`, 4095 corresponds to 0 and 0
+        corresponds to 100%.
