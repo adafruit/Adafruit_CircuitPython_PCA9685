@@ -7,8 +7,8 @@ from adafruit_bus_device import i2c_device
 
 class PCA9685:
     # Registers:
-    mode1_reg = i2c_struct.Struct(0x00, '<B')
-    prescale_reg = i2c_struct.Struct(0xFE, '<B')
+    mode1_reg = i2c_struct.UnaryStruct(0x00, '<B')
+    prescale_reg = i2c_struct.UnaryStruct(0xFE, '<B')
     pwm_regs = (i2c_struct.Struct(0x06, '<HH'), # PWM 0
                 i2c_struct.Struct(0x0A, '<HH'), # PWM 1
                 i2c_struct.Struct(0x0E, '<HH'), # PWM 2
@@ -31,18 +31,18 @@ class PCA9685:
         self.reset()
 
     def reset(self):
-        self.mode1_reg = (0x00,) # Mode1
+        self.mode1_reg = 0x00 # Mode1
 
     def freq(self, freq=None):
         if freq is None:
-            return int(25000000.0 / 4096 / (self.prescale_reg[0] - 0.5))
+            return int(25000000.0 / 4096 / (self.prescale_reg - 0.5))
         prescale = int(25000000.0 / 4096.0 / freq + 0.5)
-        old_mode = self.mode1_reg[0] # Mode 1
-        self.mode1_reg = ((old_mode & 0x7F) | 0x10,) # Mode 1, sleep
-        self.prescale_reg = (prescale,) # Prescale
-        self.mode1_reg = (old_mode,) # Mode 1
+        old_mode = self.mode1_reg # Mode 1
+        self.mode1_reg = (old_mode & 0x7F) | 0x10 # Mode 1, sleep
+        self.prescale_reg = prescale # Prescale
+        self.mode1_reg = old_mode # Mode 1
         time.sleep(0.005)
-        self.mode1_reg = (old_mode | 0xa1,) # Mode 1, autoincrement on
+        self.mode1_reg = old_mode | 0xa1 # Mode 1, autoincrement on
 
     def pwm(self, index, on=None, off=None):
         if on is None or off is None:
