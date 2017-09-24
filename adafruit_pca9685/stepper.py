@@ -161,7 +161,7 @@ class StepperMotor:
 
 
 class Steppers:
-    def __init__(self, i2c, address=0x60, freq=1600):
+    def __init__(self, i2c, address=0x40, freq=1600):
         self.pca9685 = pca9685.PCA9685(i2c, address)
         self.pca9685.freq(freq)
 
