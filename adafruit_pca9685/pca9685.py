@@ -1,4 +1,4 @@
-import ustruct
+
 import time
 
 from adafruit_register import i2c_struct
