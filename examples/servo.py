@@ -1,21 +1,37 @@
-import time
-
-from board import *
+from board import SCL, SDA
 import busio
 
-# Import the PCA9685 servo module.
-from adafruit_pca9685 import servo
+# Import the PCA9685 module.
+from adafruit_pca9685 import PCA9685
 
+# This example also relies on the Adafruit motor library available here:
+# https://github.com/adafruit/Adafruit_CircuitPython_Motor
+from adafruit_motor import servo
 
-# Create the I2C bus interface.
 i2c = busio.I2C(SCL, SDA)
 
 # Create a simple PCA9685 class instance.
-servos = servo.Servos(i2c)
+pca = PCA9685(i2c)
+pca.frequency = 50
 
-# Loop forever moving servo 0 between its extremes.
-while True:
-    servos.position(0, us=1000)  # 1000us period is one extreme
-    time.sleep(1)
-    servos.position(0, us=2000)  # 2000us period is opposite extreme
-    time.sleep(1)
+# To get the full range of the servo you will likely need to adjust the min_pulse and max_pulse to
+# match the stall points of the servo.
+# This is an example for the Sub-micro servo: https://www.adafruit.com/product/2201
+# servo7 = servo.Servo(pca.channels[7], min_pulse=580, max_pulse=2480)
+# This is an example for the Micro Servo - High Powered, High Torque Metal Gear:
+#   https://www.adafruit.com/product/2307
+# servo7 = servo.Servo(pca.channels[7], min_pulse=600, max_pulse=2400)
+# This is an example for the Standard servo - TowerPro SG-5010 - 5010:
+#   https://www.adafruit.com/product/155
+# servo7 = servo.Servo(pca.channels[7], min_pulse=600, max_pulse=2500)
+# This is an example for the Analog Feedback Servo: https://www.adafruit.com/product/1404
+# servo7 = servo.Servo(pca.channels[7], min_pulse=600, max_pulse=2600)
+
+# The pulse range is 1000 - 2000 by default.
+servo7 = servo.Servo(pca.channels[7])
+
+for i in range(180):
+    servo7.angle = i
+for i in range(180):
+    servo7.angle = 180 - i
+pca.deinit()
