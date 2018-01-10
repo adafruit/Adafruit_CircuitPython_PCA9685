@@ -1,3 +1,5 @@
+# This example moves a servo its full range (180 degrees by default) and then back.
+
 from board import SCL, SDA
 import busio
 
