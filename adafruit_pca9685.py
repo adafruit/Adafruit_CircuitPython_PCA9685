@@ -74,7 +74,7 @@ class PWMChannel:
             self._pca.pwm_regs[self._index].__set__(self._pca, (0, value))
 
 class PCAChannels: # pylint: disable=too-few-public-methods
-    """Lazily creates and caches channel objects as needed."""
+    """Lazily creates and caches channel objects as needed. Treat it like a sequence."""
     def __init__(self, pca):
         self._pca = pca
         self._channels = [None] * len(self)
@@ -122,7 +122,9 @@ class PCA9685:
     def __init__(self, i2c_bus, *, address=0x40, reference_clock_speed=25000000):
         self.i2c_device = i2c_device.I2CDevice(i2c_bus, address)
         self.channels = PCAChannels(self)
+        """Sequence of 16 `PWMChannel` objects. One for each channel."""
         self.reference_clock_speed = reference_clock_speed
+        """The reference clock speed in Hz."""
         self.reset()
 
     def reset(self):
