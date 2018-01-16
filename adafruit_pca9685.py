@@ -38,7 +38,8 @@ __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_PCA9685.git"
 
 import time
 
-from adafruit_register import i2c_struct
+from adafruit_register.i2c_struct import UnaryStruct
+from adafruit_register.i2c_struct_array import StructArray
 from adafruit_bus_device import i2c_device
 
 class PWMChannel:
@@ -56,7 +57,7 @@ class PWMChannel:
     def duty_cycle(self):
         """16 bit value that dictates how much of one cycle is high (1) versus low (0). 0xffff will
            always be high, 0 will always be low and 0x7fff will be half high and then half low."""
-        pwm = self._pca.pwm_regs[self._index].__get__(self._pca)
+        pwm = self._pca.pwm_regs[self._index]
         if pwm[0] == 0x1000:
             return 0xffff
         return pwm[1] << 4
@@ -67,11 +68,11 @@ class PWMChannel:
             raise ValueError("Out of range")
 
         if value == 0xffff:
-            self._pca.pwm_regs[self._index].__set__(self._pca, (0x1000, 0))
+            self._pca.pwm_regs[self._index] = (0x1000, 0)
         else:
             # Shift our value by four because the PCA9685 is only 12 bits but our value is 16
             value = (value + 1) >> 4
-            self._pca.pwm_regs[self._index].__set__(self._pca, (0, value))
+            self._pca.pwm_regs[self._index] = (0, value)
 
 class PCAChannels: # pylint: disable=too-few-public-methods
     """Lazily creates and caches channel objects as needed. Treat it like a sequence."""
@@ -100,24 +101,9 @@ class PCA9685:
        :param int reference_clock_speed: The frequency of the internal reference clock in Herz.
     """
     # Registers:
-    mode1_reg = i2c_struct.UnaryStruct(0x00, '<B')
-    prescale_reg = i2c_struct.UnaryStruct(0xFE, '<B')
-    pwm_regs = (i2c_struct.Struct(0x06, '<HH'), # PWM 0
-                i2c_struct.Struct(0x0A, '<HH'), # PWM 1
-                i2c_struct.Struct(0x0E, '<HH'), # PWM 2
-                i2c_struct.Struct(0x12, '<HH'), # PWM 3
-                i2c_struct.Struct(0x16, '<HH'), # PWM 4
-                i2c_struct.Struct(0x1A, '<HH'), # PWM 5
-                i2c_struct.Struct(0x1E, '<HH'), # PWM 6
-                i2c_struct.Struct(0x22, '<HH'), # PWM 7
-                i2c_struct.Struct(0x26, '<HH'), # PWM 8
-                i2c_struct.Struct(0x2A, '<HH'), # PWM 9
-                i2c_struct.Struct(0x2E, '<HH'), # PWM 10
-                i2c_struct.Struct(0x32, '<HH'), # PWM 11
-                i2c_struct.Struct(0x36, '<HH'), # PWM 12
-                i2c_struct.Struct(0x3A, '<HH'), # PWM 13
-                i2c_struct.Struct(0x3E, '<HH'), # PWM 14
-                i2c_struct.Struct(0x42, '<HH')) # PWM 15
+    mode1_reg = UnaryStruct(0x00, '<B')
+    prescale_reg = UnaryStruct(0xFE, '<B')
+    pwm_regs = StructArray(0x06, '<HH', 16)
 
     def __init__(self, i2c_bus, *, address=0x40, reference_clock_speed=25000000):
         self.i2c_device = i2c_device.I2CDevice(i2c_bus, address)
