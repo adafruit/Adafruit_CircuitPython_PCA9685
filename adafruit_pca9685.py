@@ -31,6 +31,21 @@ Driver for the PCA9685 PWM control IC. Its commonly used to control servos, leds
     outputs for specific uses instead of generic duty_cycle adjustments.
 
 * Author(s): Scott Shawcroft
+
+Implementation Notes
+--------------------
+
+**Hardware:**
+
+* Adafruit `16-Channel 12-bit PWM/Servo Driver - I2C interface - PCA9685
+  <https://www.adafruit.com/product/815>`_ (Product ID: 815)
+
+**Software and Dependencies:**
+
+* Adafruit CircuitPython firmware for the ESP8622 and M0-based boards:
+  https://github.com/adafruit/circuitpython/releases
+* Adafruit's Bus Device library: https://github.com/adafruit/Adafruit_CircuitPython_BusDevice
+* Adafruit's Register library: https://github.com/adafruit/Adafruit_CircuitPython_Register
 """
 
 __version__ = "0.0.0-auto.0"
@@ -89,16 +104,17 @@ class PCAChannels: # pylint: disable=too-few-public-methods
         return self._channels[index]
 
 class PCA9685:
-    """Initialise the PCA9685 chip at ``address`` on ``i2c_bus``.
+    """
+    Initialise the PCA9685 chip at ``address`` on ``i2c_bus``.
 
-       The internal reference clock is 25mhz but may vary slightly with environmental conditions and
-       manufacturing variances. Providing a more precise ``reference_clock_speed`` can improve the
-       accuracy of the frequency and duty_cycle computations. See the ``calibration.py`` example for
-       how to derive this value by measuring the resulting pulse widths.
+    The internal reference clock is 25mhz but may vary slightly with environmental conditions and
+    manufacturing variances. Providing a more precise ``reference_clock_speed`` can improve the
+    accuracy of the frequency and duty_cycle computations. See the ``calibration.py`` example for
+    how to derive this value by measuring the resulting pulse widths.
 
-       :param ~busio.I2C i2c_bus: The I2C bus which the PCA9685 is connected to.
-       :param int address: The I2C address of the PCA9685.
-       :param int reference_clock_speed: The frequency of the internal reference clock in Herz.
+    :param ~busio.I2C i2c_bus: The I2C bus which the PCA9685 is connected to.
+    :param int address: The I2C address of the PCA9685.
+    :param int reference_clock_speed: The frequency of the internal reference clock in Herz.
     """
     # Registers:
     mode1_reg = UnaryStruct(0x00, '<B')
