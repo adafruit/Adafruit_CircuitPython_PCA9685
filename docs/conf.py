@@ -18,7 +18,7 @@ extensions = [
 intersphinx_mapping = {'python': ('https://docs.python.org/3.4', None),'BusDevice': ('https://circuitpython.readthedocs.io/projects/busdevice/en/latest/', None),'CircuitPython': ('https://circuitpython.readthedocs.io/en/latest/', None)}
 
 # Libraries we depend on but don't need for generating docs.
-autodoc_mock_imports = ['adafruit_bus_device', 'adafruit_register']
+# autodoc_mock_imports = ['adafruit_bus_device', 'adafruit_register']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
