@@ -1,32 +1,31 @@
-# This is a common .travis.yml for generating library release zip files for
-# CircuitPython library releases using circuitpython-build-tools.
-# See https://github.com/adafruit/circuitpython-build-tools for detailed setup
-# instructions.
-
 dist: trusty
 sudo: false
 language: python
 python:
-    - "3.6"
-
+- '3.6'
 cache:
-    pip: true
-
+  pip: true
 deploy:
   provider: releases
-  api_key: $GITHUB_TOKEN
+  api_key: "$GITHUB_TOKEN"
   file_glob: true
-  file: $TRAVIS_BUILD_DIR/bundles/*
+  file: "$TRAVIS_BUILD_DIR/bundles/*"
   skip_cleanup: true
   overwrite: true
   on:
     tags: true
-
+- provider: pypi
+  user: adafruit-travis
+  on:
+    tags: true
+  password:
+    secure: YxpuY9eDrYRhWdp9P7Lev9gefE0iFud7K7bqPhZqFF2W+gS4QLrwzyJStEoivHZllEytOxTHl7DMvr5GWQHKa9vPPryCE5vPhM4Ec/ijuITYaC9vyL+YGwCEWsN9YGNnRra5FFZUyBt2rSK4aq5HOI8JKbxdsUgudGtUz5O2NFk9A0RG61HueGxmIwLN5xp2Xr0A4tqs9k4A+ZsqhyA+FqHtjYzF6ThAdpHbYDy677HJbUsDWuXdqMkmjuoKl6cAxe0Do6XrAO+Tp7JkiBUu9GfnTZiLKDLhqro0uVaIqQrJqTqW9mHUE704Q8bhX/ERhPwkTNVW9zek4lsm4/pNSvbK8g1W5PSgvKAgzrEU6zwJ4IkEFM8JPh2Wk+mZiR+iKPsO/lVlAs9gUh05z+AT6TTNscyzuLTuCrVeu9MlchslLCIrx8VEIeAzEy0mut0FAXhj6T9TlQ9zrkX5UCxgDn1PxVg8NI5l1OUVVRFb/E1gz27EbatnGszmx+I+gGe4Ta246eNUAcC3zAsnPFj5e3SMy0jZ+WLM4CbXXzVZ/j4rPGm5ppOAB89byjUgpTLAsCZEDeIclvAYzobv2ovEQ8TRdrp/JY/OQ5ybcGb6cypfaq7SBHeK/aLjecKsb5j5cEi1WVa6EMjP9ctq3YmHrTrNvFk5tdFtBeDVSmi/+1E=
 install:
-  - pip install pylint circuitpython-build-tools Sphinx sphinx-rtd-theme
-
+- pip install -r requirements.txt
+- pip install pylint circuitpython-build-tools Sphinx sphinx-rtd-theme
 script:
-  - pylint adafruit_pca9685.py
-  - ([[ ! -d "examples" ]] || pylint --disable=missing-docstring,invalid-name examples/*.py)
-  - circuitpython-build-bundles --filename_prefix adafruit-circuitpython-pca9685 --library_location .
-  - cd docs && sphinx-build -E -W -b html . _build/html
+- pylint adafruit_pca9685.py
+- ([[ ! -d "examples" ]] || pylint --disable=missing-docstring,invalid-name examples/*.py)
+- circuitpython-build-bundles --filename_prefix adafruit-circuitpython-pca9685 --library_location
+  .
+- cd docs && sphinx-build -E -W -b html . _build/html && cd ..
