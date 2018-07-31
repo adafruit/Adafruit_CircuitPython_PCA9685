@@ -65,8 +65,14 @@ class PWMChannel:
 
     @property
     def frequency(self):
-        """The overall PWM frequency in herz."""
+        """The overall PWM frequency in Hertz (read-only).
+        A PWMChannel's frequency cannot be set individually.
+        All channels share a common frequency, set by PCA9685.frequency."""
         return self._pca.frequency
+
+    @frequency.setter
+    def frequency(self, _):
+        raise NotImplementedError("frequency cannot be set on individual channels")
 
     @property
     def duty_cycle(self):
@@ -114,7 +120,7 @@ class PCA9685:
 
     :param ~busio.I2C i2c_bus: The I2C bus which the PCA9685 is connected to.
     :param int address: The I2C address of the PCA9685.
-    :param int reference_clock_speed: The frequency of the internal reference clock in Herz.
+    :param int reference_clock_speed: The frequency of the internal reference clock in Hertz.
     """
     # Registers:
     mode1_reg = UnaryStruct(0x00, '<B')
@@ -135,7 +141,7 @@ class PCA9685:
 
     @property
     def frequency(self):
-        """The overall PWM frequency in herz."""
+        """The overall PWM frequency in Hertz."""
         return self.reference_clock_speed / 4096 / self.prescale_reg
 
     @frequency.setter
