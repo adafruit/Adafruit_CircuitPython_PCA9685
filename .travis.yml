@@ -6,7 +6,7 @@ python:
 cache:
   pip: true
 deploy:
-  provider: releases
+- provider: releases
   api_key: "$GITHUB_TOKEN"
   file_glob: true
   file: "$TRAVIS_BUILD_DIR/bundles/*"
@@ -23,6 +23,7 @@ deploy:
 install:
 - pip install -r requirements.txt
 - pip install pylint circuitpython-build-tools Sphinx sphinx-rtd-theme
+- pip install --force-reinstall pylint==1.9.2
 script:
 - pylint adafruit_pca9685.py
 - ([[ ! -d "examples" ]] || pylint --disable=missing-docstring,invalid-name examples/*.py)

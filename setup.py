@@ -52,7 +52,7 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='adafruit pca9865 hardware micropython circuitpython',
+    keywords='adafruit pca9865 motor stepper servo hardware micropython circuitpython',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
