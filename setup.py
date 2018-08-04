@@ -18,17 +18,17 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='adafruit-circuitpython-pca9865',
+    name='adafruit-circuitpython-pca9685',
 
     use_scm_version=True,
     setup_requires=['setuptools_scm'],
 
-    description='CircuitPython driver for motor, stepper, and servo based on PCA9865.',
+    description='CircuitPython driver for motor, stepper, and servo based on PCA9685.',
     long_description=long_description,
     long_description_content_type='text/x-rst',
 
     # The project's main homepage.
-    url='https://github.com/adafruit/Adafruit_CircuitPython_PCA9865',
+    url='https://github.com/adafruit/Adafruit_CircuitPython_PCA9685',
 
     # Author details
     author='Radomir Dopieralski & Adafruit Industries',
@@ -52,9 +52,9 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='adafruit pca9865 motor stepper servo hardware micropython circuitpython',
+    keywords='adafruit pca9685 motor stepper servo hardware micropython circuitpython',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    py_modules=['adafruit_pca9865'],
+    py_modules=['adafruit_pca9685'],
 )
