@@ -7,10 +7,10 @@ Ensure your device works with this simple test.
     :caption: examples/pca9685_simpletest.py
     :linenos:
 
-.. literalinclude:: ../examples/calibration.py
-    :caption: examples/calibration.py
+.. literalinclude:: ../examples/pca9685_calibration.py
+    :caption: examples/pca9685_calibration.py
     :linenos:
 
-.. literalinclude:: ../examples/servo.py
-    :caption: examples/servo.py
+.. literalinclude:: ../examples/pca9685_servo.py
+    :caption: examples/pca9685_servo.py
     :linenos:
