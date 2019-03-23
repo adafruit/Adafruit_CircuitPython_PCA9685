@@ -30,7 +30,6 @@ This is easily achieved by downloading
 
 Installing from PyPI
 --------------------
-   If the library is not planned for PyPI, remove the entire 'Installing from PyPI' section.
 On supported GNU/Linux systems like the Raspberry Pi, you can install the driver locally `from
 PyPI <https://pypi.org/project/adafruit-circuitpython-pca9685/>`_. To install for current user:
 
