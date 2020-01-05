@@ -10,8 +10,8 @@ Introduction
     :target: https://discord.gg/nBQh6qu
     :alt: Discord
 
-.. image:: https://travis-ci.com/adafruit/Adafruit_CircuitPython_PCA9685.svg?branch=master
-    :target: https://travis-ci.com/adafruit/Adafruit_CircuitPython_PCA9685
+.. image:: https://github.com/adafruit/Adafruit_CircuitPython_PCA9685/workflows/Build%20CI/badge.svg
+    :target: https://github.com/adafruit/Adafruit_CircuitPython_PCA9685/actions/
     :alt: Build Status
 
 Driver for the PCA9685, a 16-channel, 12-bit PWM chip
