@@ -57,8 +57,10 @@ from adafruit_register.i2c_struct import UnaryStruct
 from adafruit_register.i2c_struct_array import StructArray
 from adafruit_bus_device import i2c_device
 
+
 class PWMChannel:
     """A single PCA9685 channel that matches the :py:class:`~pulseio.PWMOut` API."""
+
     def __init__(self, pca, index):
         self._pca = pca
         self._index = index
@@ -80,23 +82,25 @@ class PWMChannel:
            always be high, 0 will always be low and 0x7fff will be half high and then half low."""
         pwm = self._pca.pwm_regs[self._index]
         if pwm[0] == 0x1000:
-            return 0xffff
+            return 0xFFFF
         return pwm[1] << 4
 
     @duty_cycle.setter
     def duty_cycle(self, value):
-        if not 0 <= value <= 0xffff:
+        if not 0 <= value <= 0xFFFF:
             raise ValueError("Out of range")
 
-        if value == 0xffff:
+        if value == 0xFFFF:
             self._pca.pwm_regs[self._index] = (0x1000, 0)
         else:
             # Shift our value by four because the PCA9685 is only 12 bits but our value is 16
             value = (value + 1) >> 4
             self._pca.pwm_regs[self._index] = (0, value)
 
-class PCAChannels: # pylint: disable=too-few-public-methods
+
+class PCAChannels:  # pylint: disable=too-few-public-methods
     """Lazily creates and caches channel objects as needed. Treat it like a sequence."""
+
     def __init__(self, pca):
         self._pca = pca
         self._channels = [None] * len(self)
@@ -108,6 +112,7 @@ class PCAChannels: # pylint: disable=too-few-public-methods
         if not self._channels[index]:
             self._channels[index] = PWMChannel(self._pca, index)
         return self._channels[index]
+
 
 class PCA9685:
     """
@@ -122,10 +127,11 @@ class PCA9685:
     :param int address: The I2C address of the PCA9685.
     :param int reference_clock_speed: The frequency of the internal reference clock in Hertz.
     """
+
     # Registers:
-    mode1_reg = UnaryStruct(0x00, '<B')
-    prescale_reg = UnaryStruct(0xFE, '<B')
-    pwm_regs = StructArray(0x06, '<HH', 16)
+    mode1_reg = UnaryStruct(0x00, "<B")
+    prescale_reg = UnaryStruct(0xFE, "<B")
+    pwm_regs = StructArray(0x06, "<HH", 16)
 
     def __init__(self, i2c_bus, *, address=0x40, reference_clock_speed=25000000):
         self.i2c_device = i2c_device.I2CDevice(i2c_bus, address)
@@ -137,7 +143,7 @@ class PCA9685:
 
     def reset(self):
         """Reset the chip."""
-        self.mode1_reg = 0x00 # Mode1
+        self.mode1_reg = 0x00  # Mode1
 
     @property
     def frequency(self):
@@ -149,12 +155,12 @@ class PCA9685:
         prescale = int(self.reference_clock_speed / 4096.0 / freq + 0.5)
         if prescale < 3:
             raise ValueError("PCA9685 cannot output at the given frequency")
-        old_mode = self.mode1_reg # Mode 1
-        self.mode1_reg = (old_mode & 0x7F) | 0x10 # Mode 1, sleep
-        self.prescale_reg = prescale # Prescale
-        self.mode1_reg = old_mode # Mode 1
+        old_mode = self.mode1_reg  # Mode 1
+        self.mode1_reg = (old_mode & 0x7F) | 0x10  # Mode 1, sleep
+        self.prescale_reg = prescale  # Prescale
+        self.mode1_reg = old_mode  # Mode 1
         time.sleep(0.005)
-        self.mode1_reg = old_mode | 0xa1 # Mode 1, autoincrement on
+        self.mode1_reg = old_mode | 0xA1  # Mode 1, autoincrement on
 
     def __enter__(self):
         return self

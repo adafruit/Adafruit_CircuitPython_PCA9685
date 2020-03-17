@@ -25,19 +25,21 @@ input("Press enter when ready to measure default frequency.")
 # Set the PWM duty cycle for channel zero to 50%. duty_cycle is 16 bits to match other PWM objects
 # but the PCA9685 will only actually give 12 bits of resolution.
 print("Running with default calibration")
-pca.channels[0].duty_cycle = 0x7fff
+pca.channels[0].duty_cycle = 0x7FFF
 time.sleep(1)
 pca.channels[0].duty_cycle = 0
 
 measured_frequency = float(input("Frequency measured: "))
 print()
 
-pca.reference_clock_speed = pca.reference_clock_speed * (measured_frequency / pca.frequency)
+pca.reference_clock_speed = pca.reference_clock_speed * (
+    measured_frequency / pca.frequency
+)
 # Set frequency again so we can get closer. Reading it back will produce the real value.
 pca.frequency = 100
 
 input("Press enter when ready to measure coarse calibration frequency.")
-pca.channels[0].duty_cycle = 0x7fff
+pca.channels[0].duty_cycle = 0x7FFF
 time.sleep(1)
 pca.channels[0].duty_cycle = 0
 measured_after_calibration = float(input("Frequency measured: "))
