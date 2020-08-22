@@ -3,12 +3,12 @@
 from board import SCL, SDA
 import busio
 
-# Import the PCA9685 module.
-from adafruit_pca9685 import PCA9685
-
 # This example also relies on the Adafruit motor library available here:
 # https://github.com/adafruit/Adafruit_CircuitPython_Motor
 from adafruit_motor import servo
+
+# Import the PCA9685 module.
+from adafruit_pca9685 import PCA9685
 
 i2c = busio.I2C(SCL, SDA)
 
