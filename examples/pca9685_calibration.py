@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
+# SPDX-License-Identifier: MIT
+
 # This advanced example can be used to compute a more precise reference_clock_speed. Use an
 # oscilloscope or logic analyzer to measure the signal frequency and type the results into the
 # prompts. At the end it'll give you a more precise value around 25 mhz for your reference clock

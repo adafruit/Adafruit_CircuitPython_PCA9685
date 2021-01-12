@@ -1,14 +1,17 @@
+# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
+# SPDX-License-Identifier: MIT
+
 # This example moves a servo its full range (180 degrees by default) and then back.
 
 from board import SCL, SDA
 import busio
 
-# Import the PCA9685 module.
-from adafruit_pca9685 import PCA9685
-
 # This example also relies on the Adafruit motor library available here:
 # https://github.com/adafruit/Adafruit_CircuitPython_Motor
 from adafruit_motor import servo
+
+# Import the PCA9685 module.
+from adafruit_pca9685 import PCA9685
 
 i2c = busio.I2C(SCL, SDA)
 
