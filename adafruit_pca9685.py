@@ -1,25 +1,8 @@
-# The MIT License (MIT)
+# SPDX-FileCopyrightText: 2016 Radomir Dopieralski for Adafruit Industries
+# SPDX-FileCopyrightText: 2017 Scott Shawcroft for Adafruit Industries
 #
-# Copyright (c) 2016 Radomir Dopieralski, written for Adafruit Industries
-# Copyright (c) 2017 Scott Shawcroft for Adafruit Industries LLC
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
+# SPDX-License-Identifier: MIT
+
 """
 `adafruit_pca9685`
 ====================================================
@@ -79,7 +62,7 @@ class PWMChannel:
     @property
     def duty_cycle(self):
         """16 bit value that dictates how much of one cycle is high (1) versus low (0). 0xffff will
-           always be high, 0 will always be low and 0x7fff will be half high and then half low."""
+        always be high, 0 will always be low and 0x7fff will be half high and then half low."""
         pwm = self._pca.pwm_regs[self._index]
         if pwm[0] == 0x1000:
             return 0xFFFF
