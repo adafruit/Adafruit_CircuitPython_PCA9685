@@ -143,7 +143,8 @@ class PCA9685:
         self.prescale_reg = prescale  # Prescale
         self.mode1_reg = old_mode  # Mode 1
         time.sleep(0.005)
-        self.mode1_reg = old_mode | 0xA1  # Mode 1, autoincrement on
+        # Mode 1, autoincrement on, fix to stop pca9685 from accepting commands at all addresses
+        self.mode1_reg = old_mode | 0xA0
 
     def __enter__(self):
         return self
