@@ -42,7 +42,7 @@ from adafruit_bus_device import i2c_device
 
 
 class PWMChannel:
-    """A single PCA9685 channel that matches the :py:class:`~pulseio.PWMOut` API."""
+    """A single PCA9685 channel that matches the :py:class:`~pwmio.PWMOut` API."""
 
     def __init__(self, pca, index):
         self._pca = pca
