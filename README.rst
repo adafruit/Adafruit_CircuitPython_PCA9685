@@ -58,6 +58,11 @@ Usage Example
 
 See examples/pca9685_simpletest.py for a demo of the usage.
 
+Documentation
+=============
+
+API documentation for this library can be found on `Read the Docs <https://circuitpython.readthedocs.io/projects/pca9685/en/latest/>`_.
+
 Contributing
 ============
 
