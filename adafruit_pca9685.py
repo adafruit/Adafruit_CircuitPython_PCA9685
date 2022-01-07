@@ -113,6 +113,7 @@ class PCA9685:
 
     # Registers:
     mode1_reg = UnaryStruct(0x00, "<B")
+    mode2_reg = UnaryStruct(0x01, "<B")
     prescale_reg = UnaryStruct(0xFE, "<B")
     pwm_regs = StructArray(0x06, "<HH", 16)
 
