@@ -50,12 +50,12 @@ except ImportError:
 
 class PWMChannel:
     """A single PCA9685 channel that matches the :py:class:`~pwmio.PWMOut` API.
-    
+
     :param PCA9685 pca: The PCA9685 object
     :param int index: The index of the channel
     """
 
-    def __init__(self, pca: 'PCA9685', index: int):
+    def __init__(self, pca: "PCA9685", index: int):
         self._pca = pca
         self._index = index
 
@@ -94,11 +94,11 @@ class PWMChannel:
 
 class PCAChannels:  # pylint: disable=too-few-public-methods
     """Lazily creates and caches channel objects as needed. Treat it like a sequence.
-    
+
     :param PCA9685 pca: The PCA9685 object
     """
 
-    def __init__(self, pca: 'PCA9685') -> None:
+    def __init__(self, pca: "PCA9685") -> None:
         self._pca = pca
         self._channels = [None] * len(self)
 
@@ -130,7 +130,13 @@ class PCA9685:
     prescale_reg = UnaryStruct(0xFE, "<B")
     pwm_regs = StructArray(0x06, "<HH", 16)
 
-    def __init__(self, i2c_bus: I2C, *, address: int = 0x40, reference_clock_speed: int = 25000000) -> None:
+    def __init__(
+        self,
+        i2c_bus: I2C,
+        *,
+        address: int = 0x40,
+        reference_clock_speed: int = 25000000
+    ) -> None:
         self.i2c_device = i2c_device.I2CDevice(i2c_bus, address)
         self.channels = PCAChannels(self)
         """Sequence of 16 `PWMChannel` objects. One for each channel."""
@@ -160,10 +166,15 @@ class PCA9685:
         # Mode 1, autoincrement on, fix to stop pca9685 from accepting commands at all addresses
         self.mode1_reg = old_mode | 0xA0
 
-    def __enter__(self) -> 'PCA9685':
+    def __enter__(self) -> "PCA9685":
         return self
 
-    def __exit__(self, exception_type: Optional[Type[type]], exception_value: Optional[BaseException], traceback: Optional[TracebackType]) -> None:
+    def __exit__(
+        self,
+        exception_type: Optional[Type[type]],
+        exception_value: Optional[BaseException],
+        traceback: Optional[TracebackType],
+    ) -> None:
         self.deinit()
 
     def deinit(self) -> None:
