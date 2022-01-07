@@ -49,7 +49,11 @@ except ImportError:
 
 
 class PWMChannel:
-    """A single PCA9685 channel that matches the :py:class:`~pwmio.PWMOut` API."""
+    """A single PCA9685 channel that matches the :py:class:`~pwmio.PWMOut` API.
+    
+    :param PCA9685 pca: The PCA9685 object
+    :param int index: The index of the channel
+    """
 
     def __init__(self, pca: 'PCA9685', index: int):
         self._pca = pca
@@ -89,7 +93,10 @@ class PWMChannel:
 
 
 class PCAChannels:  # pylint: disable=too-few-public-methods
-    """Lazily creates and caches channel objects as needed. Treat it like a sequence."""
+    """Lazily creates and caches channel objects as needed. Treat it like a sequence.
+    
+    :param PCA9685 pca: The PCA9685 object
+    """
 
     def __init__(self, pca: 'PCA9685') -> None:
         self._pca = pca
