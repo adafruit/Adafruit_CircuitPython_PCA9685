@@ -152,11 +152,12 @@ class PCA9685:
     @property
     def frequency(self) -> float:
         """The overall PWM frequency in Hertz."""
-        if self.prescale_reg < 3:
+        prescale_result = self.prescale_reg
+        if prescale_result < 3:
             raise ValueError(
                 "The device pre_scale register (0xFE) was not read or returned a value < 3"
             )
-        return self.reference_clock_speed / 4096 / self.prescale_reg
+        return self.reference_clock_speed / 4096 / prescale_result
 
     @frequency.setter
     def frequency(self, freq: float) -> None:
