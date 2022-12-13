@@ -82,7 +82,7 @@ class PWMChannel:
     @duty_cycle.setter
     def duty_cycle(self, value: int) -> None:
         if not 0 <= value <= 0xFFFF:
-            raise ValueError("Out of range")
+            raise ValueError(f"Out of range: value {value} not 0 <= value <= 0xFFFF")
 
         if value == 0xFFFF:
             self._pca.pwm_regs[self._index] = (0x1000, 0)
@@ -136,7 +136,7 @@ class PCA9685:
         i2c_bus: I2C,
         *,
         address: int = 0x40,
-        reference_clock_speed: int = 25000000
+        reference_clock_speed: int = 25000000,
     ) -> None:
         self.i2c_device = i2c_device.I2CDevice(i2c_bus, address)
         self.channels = PCAChannels(self)
@@ -152,6 +152,10 @@ class PCA9685:
     @property
     def frequency(self) -> float:
         """The overall PWM frequency in Hertz."""
+        if self.prescale_reg < 3:
+            raise ValueError(
+                "The device pre_scale register (0xFE) was not read or returned a value < 3"
+            )
         return self.reference_clock_speed / 4096 / self.prescale_reg
 
     @frequency.setter
