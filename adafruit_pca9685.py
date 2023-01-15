@@ -82,7 +82,7 @@ class PWMChannel:
     @duty_cycle.setter
     def duty_cycle(self, value: int) -> None:
         if not 0 <= value <= 0xFFFF:
-            raise ValueError(f"Out of range: value {value} not 0 <= value <= 0xFFFF")
+            raise ValueError(f"Out of range: value {value} not 0 <= value <= 65,535")
 
         if value == 0xFFFF:
             self._pca.pwm_regs[self._index] = (0x1000, 0)
