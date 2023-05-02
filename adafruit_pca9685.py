@@ -77,7 +77,7 @@ class PWMChannel:
         pwm = self._pca.pwm_regs[self._index]
         if pwm[0] == 0x1000:
             return 0xFFFF
-        elif pwm[1] == 0x1000:
+        if pwm[1] == 0x1000:
             return 0x0000
         return pwm[1] << 4
 
