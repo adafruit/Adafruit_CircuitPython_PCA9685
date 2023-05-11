@@ -73,7 +73,8 @@ class PWMChannel:
     @property
     def duty_cycle(self) -> int:
         """16 bit value that dictates how much of one cycle is high (1) versus low (0). 0xffff will
-        always be high, 0 will always be low and 0x7fff will be half high and then half low."""
+        always be high, 0 will always be low and 0x7fff will be half high and then half low.
+        """
         pwm = self._pca.pwm_regs[self._index]
         if pwm[0] == 0x1000:
             return 0xFFFF
