@@ -7,18 +7,16 @@
 # speed.
 
 import time
-
-from board import SCL, SDA
+import board
 import busio
-
-# Import the PCA9685 module.
 from adafruit_pca9685 import PCA9685
 
 # Create the I2C bus interface.
-i2c_bus = busio.I2C(SCL, SDA)
+i2c = board.I2C()  # uses board.SCL and board.SDA
+# i2c = busio.I2C(board.GP1, board.GP0)    # Pi Pico RP2040
 
 # Create a simple PCA9685 class instance.
-pca = PCA9685(i2c_bus)
+pca = PCA9685(i2c)
 
 # Set the PWM frequency to 100hz.
 pca.frequency = 100
