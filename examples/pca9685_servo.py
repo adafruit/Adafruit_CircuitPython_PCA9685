@@ -3,7 +3,6 @@
 
 import time
 import board
-import busio
 from adafruit_motor import servo
 from adafruit_pca9685 import PCA9685
 

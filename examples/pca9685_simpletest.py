@@ -1,12 +1,11 @@
 # SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
 # SPDX-License-Identifier: MIT
 
-# This simple test outputs a 50% duty cycle PWM single on the 0th channel. Connect an LED and
-# resistor in series to the pin to visualize duty cycle changes and its impact on brightness.
+# Outputs a 50% duty cycle PWM single on the 0th channel.
+# Connect an LED and resistor in series to the pin
+# to visualize duty cycle changes and its impact on brightness.
 
-import time
 import board
-import busio
 from adafruit_pca9685 import PCA9685
 
 # Create the I2C bus interface.

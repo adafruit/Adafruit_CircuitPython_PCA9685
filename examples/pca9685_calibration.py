@@ -8,7 +8,6 @@
 
 import time
 import board
-import busio
 from adafruit_pca9685 import PCA9685
 
 # Create the I2C bus interface.
