@@ -78,6 +78,8 @@ class PWMChannel:
         pwm = self._pca.pwm_regs[self._index]
         if pwm[0] == 0x1000:
             return 0xFFFF
+        if pwm[1] == 0x1000:
+            return 0x0000
         return pwm[1] << 4
 
     @duty_cycle.setter
@@ -86,10 +88,16 @@ class PWMChannel:
             raise ValueError(f"Out of range: value {value} not 0 <= value <= 65,535")
 
         if value == 0xFFFF:
+            # Special case for "fully on":
             self._pca.pwm_regs[self._index] = (0x1000, 0)
+        elif value < 0x0010:
+            # Special case for "fully off":
+            self._pca.pwm_regs[self._index] = (0, 0x1000)
         else:
             # Shift our value by four because the PCA9685 is only 12 bits but our value is 16
-            value = (value + 1) >> 4
+            value = value >> 4
+            # value should never be zero here because of the test for the "fully off" case
+            # (the LEDn_ON and LEDn_OFF registers should never be set with the same values)
             self._pca.pwm_regs[self._index] = (0, value)
 
 
