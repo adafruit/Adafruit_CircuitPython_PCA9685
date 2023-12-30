@@ -166,11 +166,11 @@ class PCA9685:
             raise ValueError(
                 "The device pre_scale register (0xFE) was not read or returned a value < 3"
             )
-        return self.reference_clock_speed / 4096 / prescale_result
+        return self.reference_clock_speed / 4096 / (prescale_result + 1)
 
     @frequency.setter
     def frequency(self, freq: float) -> None:
-        prescale = int(self.reference_clock_speed / 4096.0 / freq + 0.5)
+        prescale = int(self.reference_clock_speed / 4096.0 / freq + 0.5) - 1
         if prescale < 3:
             raise ValueError("PCA9685 cannot output at the given frequency")
         old_mode = self.mode1_reg  # Mode 1
