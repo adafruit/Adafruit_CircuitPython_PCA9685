@@ -2,16 +2,12 @@
 # SPDX-License-Identifier: MIT
 
 import time
-
-from board import SCL, SDA
-import busio
-
-# Import the PCA9685 module. Available in the bundle and here:
-#   https://github.com/adafruit/Adafruit_CircuitPython_PCA9685
+import board
 from adafruit_motor import servo
 from adafruit_pca9685 import PCA9685
 
-i2c = busio.I2C(SCL, SDA)
+i2c = board.I2C()  # uses board.SCL and board.SDA
+# i2c = busio.I2C(board.GP1, board.GP0)    # Pi Pico RP2040
 
 # Create a simple PCA9685 class instance.
 pca = PCA9685(i2c)
