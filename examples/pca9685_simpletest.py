@@ -6,6 +6,7 @@
 # to visualize duty cycle changes and its impact on brightness.
 
 import board
+
 from adafruit_pca9685 import PCA9685
 
 # Create the I2C bus interface.
