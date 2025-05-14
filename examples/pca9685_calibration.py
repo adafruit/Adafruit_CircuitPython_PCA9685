@@ -7,7 +7,9 @@
 # speed.
 
 import time
+
 import board
+
 from adafruit_pca9685 import PCA9685
 
 # Create the I2C bus interface.
@@ -32,9 +34,7 @@ pca.channels[0].duty_cycle = 0
 measured_frequency = float(input("Frequency measured: "))
 print()
 
-pca.reference_clock_speed = pca.reference_clock_speed * (
-    measured_frequency / pca.frequency
-)
+pca.reference_clock_speed = pca.reference_clock_speed * (measured_frequency / pca.frequency)
 # Set frequency again so we can get closer. Reading it back will produce the real value.
 pca.frequency = 100
 
@@ -47,4 +47,4 @@ print()
 
 reference_clock_speed = measured_after_calibration * 4096 * pca.prescale_reg
 
-print("Real reference clock speed: {0:.0f}".format(reference_clock_speed))
+print(f"Real reference clock speed: {reference_clock_speed:.0f}")

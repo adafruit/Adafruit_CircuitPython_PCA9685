@@ -2,8 +2,10 @@
 # SPDX-License-Identifier: MIT
 
 import time
+
 import board
 from adafruit_motor import servo
+
 from adafruit_pca9685 import PCA9685
 
 i2c = board.I2C()  # uses board.SCL and board.SDA

@@ -36,13 +36,14 @@ __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_PCA9685.git"
 
 import time
 
+from adafruit_bus_device import i2c_device
 from adafruit_register.i2c_struct import UnaryStruct
 from adafruit_register.i2c_struct_array import StructArray
-from adafruit_bus_device import i2c_device
 
 try:
-    from typing import Optional, Type
     from types import TracebackType
+    from typing import Optional, Type
+
     from busio import I2C
 except ImportError:
     pass
@@ -101,7 +102,7 @@ class PWMChannel:
             self._pca.pwm_regs[self._index] = (0, value)
 
 
-class PCAChannels:  # pylint: disable=too-few-public-methods
+class PCAChannels:
     """Lazily creates and caches channel objects as needed. Treat it like a sequence.
 
     :param PCA9685 pca: The PCA9685 object
