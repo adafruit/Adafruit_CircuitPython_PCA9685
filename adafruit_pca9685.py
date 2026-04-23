@@ -96,7 +96,7 @@ class PWMChannel:
             self._pca.pwm_regs[self._index] = (0, 0x1000)
         else:
             # Shift our value by four because the PCA9685 is only 12 bits but our value is 16
-            value = value >> 4
+            value >>= 4
             # value should never be zero here because of the test for the "fully off" case
             # (the LEDn_ON and LEDn_OFF registers should never be set with the same values)
             self._pca.pwm_regs[self._index] = (0, value)

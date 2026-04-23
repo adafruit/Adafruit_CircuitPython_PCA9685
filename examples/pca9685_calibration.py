@@ -34,7 +34,7 @@ pca.channels[0].duty_cycle = 0
 measured_frequency = float(input("Frequency measured: "))
 print()
 
-pca.reference_clock_speed = pca.reference_clock_speed * (measured_frequency / pca.frequency)
+pca.reference_clock_speed *= measured_frequency / pca.frequency
 # Set frequency again so we can get closer. Reading it back will produce the real value.
 pca.frequency = 100
 
